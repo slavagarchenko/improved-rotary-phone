@@ -1,1 +1,57 @@
-
+import math
+#1
+silver_watches = 96
+silver_watch_price = 48
+gold_watches = silver_watches // 16
+total_cost = int(input('Введите общую стоимость чаосв: '))
+silver_watch_cost = silver_watches * silver_watch_price
+gold_watch_cost = total_cost - silver_watch_cost
+if gold_watches > 0:
+    gold_watch_price = int(gold_watch_cost / gold_watches)
+else:
+    gold_watch_price = 0
+print(gold_watch_price)
+#2
+two_word_country = input()
+first_word, second_word = two_word_country.split()
+print(f'{first_word}\n{second_word}')
+#3
+input_two_prices = (input())
+price_S, price_R = map(int,input_two_prices.split())
+print(f'{price_R+price_S}')
+#4
+people = 1+1 #teller + oncoming person
+wives = 7
+bags = wives*7
+cats = bags*7
+kittens = cats*7
+print(people+wives+cats+kittens)
+#5
+summa = float(input())
+print(round(summa*0.19,2))
+#6
+weight = float(input())
+height = float(input())
+height = height*0.0254
+weight = weight*0.4535923745
+BMI = weight/(height**2)
+print(round(BMI,2))
+#7
+square = 10000
+precipitation_meters = 0.01
+volume_liters = (square * precipitation_meters)*1000
+print(int(volume_liters))
+#8
+input_data = (input())
+number_of_friends, number_of_sweets= map(int,input_data.split())
+sweets_per_friend = number_of_sweets//(number_of_friends+1)
+print(sweets_per_friend)
+#9
+number_of_oxes = int(input())
+number_of_families = int(input())
+extra_oxes = number_of_oxes % number_of_families
+print(extra_oxes)
+#10
+length_in_metres = int(input())
+length_in_miles = length_in_metres/1609.344
+print(int(length_in_miles))

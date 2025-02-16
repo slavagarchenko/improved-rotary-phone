@@ -32,8 +32,8 @@ print(round(summa*0.19,2))
 #6
 weight = float(input())
 height = float(input())
-height = height*0.0254
-weight = weight*0.4535923745
+height = height*0.0254 # 1 дюйм = 0.0254м
+weight = weight*0.4535923745 # 1 фунт = 0.4535923745 кг
 BMI = weight/(height**2)
 print(round(BMI,2))
 #7

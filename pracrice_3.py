@@ -113,10 +113,8 @@ print(f'{hours} часов {minutes} минут')
 
 
 #12
-from datetime import datetime
-now = datetime.now()
-formatted_string = now.strftime("%Y-%m-%d %H:%M:%S")
-print(formatted_string)
+from datetime import date
+print(date.today())
 
 
 #13

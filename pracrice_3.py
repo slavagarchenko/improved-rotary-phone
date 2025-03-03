@@ -55,13 +55,8 @@ print(sequence*r)
 
 #7
 raw = input('enter number: ')
-try:
-    num = int(raw)
-    print(num)
-except ValueError:
-    num = None
-    print("Введено не число")
-
+num = int(raw, 36)
+prunt(num)
 
 #8
 data = input()

@@ -20,7 +20,7 @@ else:
 
 ttl.up()
 ttl.setposition(xc, yc - r)
-ttl.pendown()1570
+ttl.pendown()
 ttl.circle(r)
 ttl.up()
 ttl.setposition(x, y)

@@ -74,7 +74,7 @@ for i in range(8):
             else:
                 print('ошибка')
 
-6
+# 6
 data = input('Введите данные: ')
 n, k, m = map(int, data.split(' '))
 odin_krug = (n + k - 1) // k

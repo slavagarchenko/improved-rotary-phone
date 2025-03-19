@@ -23,6 +23,7 @@ elif min(c, d, e) <= b:
         print('нет')
 else:
     print('нет')
+
 # 3
 data_rayon = input('Введите размеры района: ')
 k = int(input('Кол-во кварталов: '))

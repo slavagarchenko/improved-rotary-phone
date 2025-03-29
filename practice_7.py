@@ -1,33 +1,33 @@
-# # 1
-# for i in range(100, 1000):
-#     if i % 17 == 0:
-#         print(i, end=' ')
+# 1
+import math as mth
+for i in range(100, 1000):
+    if i % 17 == 0:
+        print(i, end=' ')
 
-# # 2
-# word = input()
-# new = ""
-# for i in range(len(word)):
-#     if i % 3 == 0:
-#         print(word[i+2], end='')
+# 2
+word = input()
+new = ""
+for i in range(len(word)):
+    if i % 3 == 0:
+        print(word[i+2], end='')
 
 # 3
-# import math as mth
-# while True:
-#     number = float(input('Введите число: '))
-#     root = mth.sqrt(number)
+while True:
+    chislo = float(input('Введите число: '))
+    root = mth.sqrt(chislo)
 
-#     if root == int(root):
-#         print(f'Это число является полным квадратом')
-#     else:
-#         print(f'Число не является полным квадратом, попробуйте ещё раз')
+    if root == int(root):
+        print(f'Это число является полным квадратом')
+    else:
+        print(f'Число не является полным квадратом, попробуйте ещё раз')
 
-# # 4
-# number = int(input())
-# sum = 0
-# while number != 0:
-#     sum += number
-#     number -= 1
-# print(sum)
+# 4
+number = int(input())
+sum = 0
+while number != 0:
+    sum += number
+    number -= 1
+print(sum)
 
 # 5
 number = int(input())

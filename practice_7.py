@@ -88,18 +88,15 @@ while n * ((100 + k)/100) ** count < r:
         break
 print(day)
 
-# 10
+#10
+temp = float(input())
 count = 0
-prev_temp = None
-while True:
-    temp = float(input())
-
-    if (temp > 37.8 or temp < 37.4) and temp != 0:
-        print('Некорректный ввод')
-
-    if temp == 0:
-        break
-    if prev_temp is not None and temp < prev_temp:
-        count += 1
+prev_temp = 0
+while temp!=0:
+    if (temp>37.8 or temp<37.4) and temp !=0:
+        print('Введите пправильную температуру')
+        temp = float(input())
+    if prev_temp>temp:
+        count+=1
     prev_temp = temp
 print(count)

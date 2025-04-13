@@ -91,20 +91,16 @@
 # stairs = [0] * n
 # level = 1
 # stairs[0] = n
-
 # while level > 0:
 #     stairs[level - 1] -= 1
 #     remaining = sum(stairs[:level])
-
 #     if stairs[level - 1] <= 0:
 #         level -= 1
 #         continue
-
 #     if remaining == 0:
 #         count += 1
 #         level -= 1
 #     elif remaining > stairs[level - 1]:
 #         stairs[level] = min(stairs[level - 1], remaining)
 #         level += 1
-
 # print(count)

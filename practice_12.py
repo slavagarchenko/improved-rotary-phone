@@ -33,13 +33,15 @@ for i in range(len(text)):
 print(len(k))
 
 # 4
+import re
 text = input()
-a = {}
-for i in text:
-    a[i] = a.get(i, 0)+1
-for i, count in a.items():
+for item in set(text):
+    symbol =  re.escape(item)
+    count = len(re.findall(symbol, text))
     if count == 3:
-        print(i)
+        print(item)
+    else:
+        print("None")
 
 # 5
 a = input()
@@ -77,26 +79,23 @@ for i in range(len(text)):
 print(count)
 
 # 8
-text = input()
-a = []
-s = ''
-for i in range(len(text)):
-    if text[i] != ' ':
-        s = s + text[i]
-    else:
-        a.append(s)
-        s = ''
-a.append(s)
-a.sort(reverse=True)
-for k in a:
-    print(k)
+sentence = input()
+words = []
+for word in sentence.split():
+    cleaned = word.rstrip('.,!?;:')#удаление символа на конце слова
+    words.append(cleaned)
+for word in sorted(words, key=len):
+    print(word)
 
 # 9
 text = input()
 k = set()
 words = text.split()
-print(words)
-for i in words:
+clean_words = []
+for word in words:
+    cleaned = word.rstrip('.,!?;:')#удаление символа на конце слова
+    clean_words.append(cleaned)
+for i in clean_words:
     if i in k:
         print(i)
     else:
@@ -107,40 +106,44 @@ text = input()
 words = text.split()
 first = words[0]
 a = []
-for word in words:
-    if word != first and len(set(word)) == len(word):
-        a.append(word)
+for word in words[1:]:
+    cleaned = word.rstrip(".,!?:;")
+    if cleaned != first and len(set(cleaned)) == len(cleaned):# set(cleaned)-создает множетсво состоящее из букв слова
+        a.append(cleaned)
 print(a)
 
 # 11
 text = input()
-a = ''
 words = text.split()
+a = ''
+
 for i in range(1, len(words)):
-    if words[i-1][-1] != words[i][0]:
-        if i % 2 == 1:
-            a = 'выиграл Петя'
-            print(a)
+    if words[i-1][-1].lower() != words[i][0].lower():  #lower() для регистра
+        if i % 2 == 1:  #четное по счету слово
+            a = 'выиграл Вася'  #Вася нарушил правила
             break
-        else:
-            a = 'выиграл Вася'
-            print(a)
+        else: #нечетное по счету слово
+            a = 'выиграл Петя'  #Петя нарушил правила
             break
+
 if a == '':
-    if len(words) % 2 == 0:
-        print('выиграл Вася')
-    else:
-        print('выиграл Петя')
+    if len(words) % 2 == 1:  #последний Петя
+        a = 'выиграл Петя'
+    else: #последний Вася
+        a = 'выиграл Вася'
+
+print(a)
 
 # 12
+import keyword
+
 text = input()
-a = ' '
-b = '_'
-if text.isalnum() and a not in text or b in text:
-    print('может быть именем')
+#метод строк который проверяет первый символ - буква, подчеркивание, и отсальные - буквы, цифры, подчеркивании   
+if text.isidentifier() and not keyword.iskeyword(text):  #функция которая выдает буллинговоые значения (True/False)
+        print('может быть именем')
 else:
     print('не может быть именем')
-
+    
 # 13
 count = 1
 s = 0

@@ -301,8 +301,6 @@ else:
     print("Скобки расставлены неправильно.")
 
 # 18
-
-
 def justify(text, width):
     words = text.split()
     lines = []
@@ -350,8 +348,6 @@ print("\nОтформатированный текст:\n")
 print(justified)
 
 # 20
-
-
 def number_to_words(n):
     units = ["", "один", "два", "три", "четыре",
              "пять", "шесть", "семь", "восемь", "девять"]

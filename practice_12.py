@@ -1,7 +1,4 @@
 # 1
-import keyword
-import re
-import pyphen
 text = input('текст: ')
 k = 0
 f = 0
@@ -35,6 +32,7 @@ for i in range(len(text)):
 print(len(k))
 
 # 4
+import re
 text = input()
 for item in set(text):
     symbol = re.escape(item)
@@ -137,7 +135,7 @@ if a == '':
 print(a)
 
 # 12
-
+import keyword
 text = input()
 # метод строк который проверяет первый символ - буква, подчеркивание, и отсальные - буквы, цифры, подчеркивании
 # функция которая выдает буллинговоые значения (True/False)

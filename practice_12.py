@@ -1,4 +1,6 @@
 # 1
+import keyword
+import re
 import pyphen
 text = input('текст: ')
 k = 0
@@ -33,10 +35,9 @@ for i in range(len(text)):
 print(len(k))
 
 # 4
-import re
 text = input()
 for item in set(text):
-    symbol =  re.escape(item)
+    symbol = re.escape(item)
     count = len(re.findall(symbol, text))
     if count == 3:
         print(item)
@@ -82,7 +83,7 @@ print(count)
 sentence = input()
 words = []
 for word in sentence.split():
-    cleaned = word.rstrip('.,!?;:')#удаление символа на конце слова
+    cleaned = word.rstrip('.,!?;:')  # удаление символа на конце слова
     words.append(cleaned)
 for word in sorted(words, key=len):
     print(word)
@@ -93,7 +94,7 @@ k = set()
 words = text.split()
 clean_words = []
 for word in words:
-    cleaned = word.rstrip('.,!?;:')#удаление символа на конце слова
+    cleaned = word.rstrip('.,!?;:')  # удаление символа на конце слова
     clean_words.append(cleaned)
 for i in clean_words:
     if i in k:
@@ -108,7 +109,8 @@ first = words[0]
 a = []
 for word in words[1:]:
     cleaned = word.rstrip(".,!?:;")
-    if cleaned != first and len(set(cleaned)) == len(cleaned):# set(cleaned)-создает множетсво состоящее из букв слова
+    # set(cleaned)-создает множетсво состоящее из букв слова
+    if cleaned != first and len(set(cleaned)) == len(cleaned):
         a.append(cleaned)
 print(a)
 
@@ -118,82 +120,117 @@ words = text.split()
 a = ''
 
 for i in range(1, len(words)):
-    if words[i-1][-1].lower() != words[i][0].lower():  #lower() для регистра
-        if i % 2 == 1:  #четное по счету слово
-            a = 'выиграл Вася'  #Вася нарушил правила
+    if words[i-1][-1].lower() != words[i][0].lower():  # lower() для регистра
+        if i % 2 == 1:  # четное по счету слово
+            a = 'выиграл Вася'  # Вася нарушил правила
             break
-        else: #нечетное по счету слово
-            a = 'выиграл Петя'  #Петя нарушил правила
+        else:  # нечетное по счету слово
+            a = 'выиграл Петя'  # Петя нарушил правила
             break
 
 if a == '':
-    if len(words) % 2 == 1:  #последний Петя
+    if len(words) % 2 == 1:  # последний Петя
         a = 'выиграл Петя'
-    else: #последний Вася
+    else:  # последний Вася
         a = 'выиграл Вася'
 
 print(a)
 
 # 12
-import keyword
 
 text = input()
-#метод строк который проверяет первый символ - буква, подчеркивание, и отсальные - буквы, цифры, подчеркивании   
-if text.isidentifier() and not keyword.iskeyword(text):  #функция которая выдает буллинговоые значения (True/False)
-        print('может быть именем')
+# метод строк который проверяет первый символ - буква, подчеркивание, и отсальные - буквы, цифры, подчеркивании
+# функция которая выдает буллинговоые значения (True/False)
+if text.isidentifier() and not keyword.iskeyword(text):
+    print('может быть именем')
 else:
     print('не может быть именем')
-    
+
 # 13
 count = 1
-s = 0
-w = 0
 while True:
-    bilet = input()
+    bilet = input().strip()
     if len(bilet) % 2 == 0:
-        for i in range(0, len(bilet)//2):
-            s += int(bilet[i])
-        for k in range(len(bilet)//2, len(bilet)):
-            w += int(bilet[k])
-    if s == w:
-        print('счастливый билет')
-        print(count)
-        break
+        first_half_sum = 0
+        second_half_sum = 0
+        half = len(bilet)//2
+        for i in range(half):
+            first_half_sum += int(bilet[i])
+        for i in range(half, len(bilet)):
+            second_half_sum += int(bilet[i])
+        if first_half_sum == second_half_sum:
+            print(count)
+            break
     count += 1
-    s = 0
-    w = 0
 
 # 14
-hint = input()
-word = input()
+hint = input("Подсказка: ")
+word = input("Загаданное слово").lower()
 zv = '*'*len(word)
+letters = set()
+attempts = 10
 
 print('\n'*25)
-print(hint)
+print("Подсказка: ", hint)
 print(zv)
 
-while answer != 1:
-    answer = int(input('Буква или слово(0-буква, 1-слово)? '))
+while attempts > 0:
+    print("Осталось попыток: ", attempts)
+
+    try:
+        answer = int(input('Буква или слово(0-буква, 1-слово)? '))
+    except ValueError:
+        print("Пожалуйста, введите 0-буква или 1-слово")
+        continue
 
     if answer == 0:
-        bukva = input()
-        new_zv = list(zv)
-        for i in range(len(word)):
-            if word[i] == bukva:
-                new_zv[i] = bukva
-        zv = ''.join(new_zv)
-        print(zv)
+        bukva = input("Введите букву: ").lower()
+        if len(bukva) != 1:
+            print("Введите одну букву")
+            continue
+        if not bukva.isalpha():
+            print("Введите букву")
+            continue
+        if bukva in letters:
+            print("Вы уже называли эту букву")
+            continue
 
-        if zv == word:
-            print('Победа!')
-            break
+        letters.add(bukva)
+
+        if bukva in word:
+            new_zv = list(zv)
+            for i in range(len(word)):
+                if word[i] == bukva:
+                    new_zv[i] = bukva
+            zv = ''.join(new_zv)
+            print(zv)
+
+            if zv == word:
+                print('Победа!')
+                break
+        else:
+            attempts -= 1
+            print("Такой буквы нет")
+            print("Слово: ", zv)
 
     elif answer == 1:
-        slovo = input()
+        slovo = input("Введите слово").lower()
         if slovo == word:
             print('Победа!')
+            break
         else:
+            attempts -= 1
             print('Проигрыш!')
+        if attempts == 0:
+            print("Проигрыш")
+        break
+
+    else:
+        print("Введите 0 или 1")
+
+    if attempts == 0:
+        print("Проигрыш")
+        print("Загаданное слово: ", word)
         break
 
 # 15
@@ -204,15 +241,24 @@ while len(secret) != 4 or not secret.isdigit() or len(set(secret)) != 4:
 print('\n' * 25)
 print("Игра началась! У вас 10 попыток.\n")
 
-for i in range(10):
-    guess = input(f"Попытка {i + 1}. Введите число: ")
+for i in range(1, 11):
+    while True:
+        print("Попытка №", i)
+        guess = input("Введите число: ")
 
-    if len(guess) != 4 or not guess.isdigit():
-        print("Введите корректное четырёхзначное число.")
-        continue
+        if len(guess) != 4 or not guess.isdigit():
+            print("Ошибка! Введите четырёхзначное число.")
+            continue
+
+        if len(set(guess)) != 4:
+            print("Ошибка! Цифры в числе не должны повторяться.")
+            continue
+
+        break
 
     bulls = 0
     cows = 0
+
     for k in range(4):
         if guess[k] == secret[k]:
             bulls += 1
@@ -224,6 +270,11 @@ for i in range(10):
     if bulls == 4:
         print("Победа!")
         break
+    else:
+        remaining_attempts = 10 - i
+        print("Осталось попыток: ", remaining_attempts)
+        print("-"*30)
+
 else:
     print("Проигрыш!")
     print("Загаданное число было:", secret)
@@ -251,69 +302,6 @@ if correct:
 else:
     print("Скобки расставлены неправильно.")
 
-# 17
-
-
-def evaluate(expr):
-    expr = expr.replace(" ", "")
-    while '(' in expr:
-        close_idx = expr.find(')')
-        open_idx = expr.rfind('(', 0, close_idx)
-        inner_expr = expr[open_idx + 1:close_idx]
-        result = str(calc(inner_expr))
-        expr = expr[:open_idx] + result + expr[close_idx + 1:]
-    return calc(expr)
-
-
-def calc(expr):
-    nums = []
-    num = ''
-    sign = 1
-    i = 0
-
-    while i < len(expr):
-        char = expr[i]
-        if char == '+':
-            nums.append(sign * float(num))
-            num = ''
-            sign = 1
-        elif char == '-':
-            nums.append(sign * float(num))
-            num = ''
-            sign = -1
-        elif char in '*/':
-            prev = sign * float(num)
-            num = ''
-            i += 1
-            while i < len(expr) and expr[i] == ' ':
-                i += 1
-            next_num = ''
-            while i < len(expr) and (expr[i].isdigit() or expr[i] == '.'):
-                next_num += expr[i]
-                i += 1
-            i -= 1
-            if char == '*':
-                num = str(prev * float(next_num))
-            else:
-                num = str(prev / float(next_num))
-            sign = 1
-        else:
-            num += char
-        i += 1
-
-    if num:
-        nums.append(sign * float(num))
-
-    return sum(nums)
-
-
-expr = input("Введите арифметическое выражение: ")
-try:
-    result = evaluate(expr)
-    print("Результат:", result)
-except Exception as e:
-    print("Ошибка в выражении:", e)
-
 # 18
 
 
@@ -323,7 +311,8 @@ def justify(text, width):
     current_line = []
 
     current_len = 0
-    for word in words:
+    for word in words:  # проверка места для слова
+        # + len(current_line) - пробелы между словами
         if current_len + len(word) + len(current_line) <= width:
             current_line.append(word)
             current_len += len(word)
@@ -342,11 +331,11 @@ def align_line(words, width):
     if len(words) == 1:
         return words[0].ljust(width)
 
-    total_chars = sum(len(word) for word in words)
-    spaces_needed = width - total_chars
-    gaps = len(words) - 1
-    space_between = spaces_needed // gaps
-    extra_spaces = spaces_needed % gaps
+    total_chars = sum(len(word) for word in words)  # общая длина слов
+    spaces_needed = width - total_chars  # кол-во пробелов
+    gaps = len(words) - 1  # кол-во промежутков между словами
+    space_between = spaces_needed // gaps  # база пробелов
+    extra_spaces = spaces_needed % gaps  # лишние пробелы
 
     line = ""
     for i, word in enumerate(words[:-1]):
@@ -362,125 +351,47 @@ justified = justify(text, width)
 print("\nОтформатированный текст:\n")
 print(justified)
 
-# 19
-dic = pyphen.Pyphen(lang='ru_RU')
-
-
-def split_word(word, max_len):
-    hyphenated = dic.inserted(word).split('-')
-    result = []
-    part = ''
-    for syllable in hyphenated:
-        if len(part + syllable) + 1 <= max_len:
-            part += syllable
-        else:
-            if part:
-                result.append(part + '-')
-            part = syllable
-    if part:
-        result.append(part)
-    return result
-
-
-def justify(text, width):
-    words = text.split()
-    lines = []
-    current_line = []
-    current_len = 0
-
-    for word in words:
-        if len(word) > width:
-            parts = split_word(word, width)
-            for part in parts:
-                if current_len + len(part) + len(current_line) <= width:
-                    current_line.append(part)
-                    current_len += len(part)
-                else:
-                    lines.append(align_line(current_line, width))
-                    current_line = [part]
-                    current_len = len(part)
-            continue
-
-        if current_len + len(word) + len(current_line) <= width:
-            current_line.append(word)
-            current_len += len(word)
-        else:
-            lines.append(align_line(current_line, width))
-            current_line = [word]
-            current_len = len(word)
-
-    if current_line:
-        lines.append(" ".join(current_line).ljust(width))
-
-    return "\n".join(lines)
-
-
-def align_line(words, width):
-    if len(words) == 1:
-        return words[0].ljust(width)
-
-    total_chars = sum(len(w) for w in words)
-    total_spaces = width - total_chars
-    gaps = len(words) - 1
-
-    space = total_spaces // gaps
-    extra = total_spaces % gaps
-
-    line = ''
-    for i, word in enumerate(words[:-1]):
-        line += word + ' ' * (space + (1 if i < extra else 0))
-    line += words[-1]
-    return line
-
-
-text = input("Введите текст: ")
-width = int(input("Введите ширину колонки: "))
-
-formatted = justify(text, width)
-print("\nОтформатированный текст:\n")
-print(formatted)
-
 # 20
 
 
 def number_to_words(n):
-    units = ["", "один", "два", "три", "четыре", "пять",
-             "шесть", "семь", "восемь", "девять"]
-    teens = ["десять", "одиннадцать", "двенадцать", "тринадцать",
-             "четырнадцать", "пятнадцать", "шестнадцать",
-             "семнадцать", "восемнадцать", "девятнадцать"]
+    units = ["", "один", "два", "три", "четыре",
+             "пять", "шесть", "семь", "восемь", "девять"]
+    teens = ["десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать",
+             "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"]
     tens = ["", "", "двадцать", "тридцать", "сорок", "пятьдесят",
             "шестьдесят", "семьдесят", "восемьдесят", "девяносто"]
-    hundreds = ["", "сто", "двести", "триста", "четыреста", "пятьсот",
-                "шестьсот", "семьсот", "восемьсот", "девятьсот"]
+    hundreds = ["", "сто", "двести", "триста", "четыреста",
+                "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"]
 
-    def group_to_words(n, gender='m'):
-        words = []
-        n = int(n)
-        h = n // 100
-        t = (n % 100) // 10
-        u = n % 10
+    def convert(num, is_female=False):
+        hu = num // 100  # сотни
+        te = (num % 100)//10  # десятки
+        un = num % 10  # единицы
 
-        words.append(hundreds[h])
+        result = []
 
-        if t == 1:
-            words.append(teens[u])
+        if hu > 0:
+            result.append(hundreds[hu])
+        if te == 1:
+            result.append(teens[un])
         else:
-            words.append(tens[t])
-            if gender == 'f':
-                words.append(["", "одна", "две"][u]
-                             if u in [1, 2] else units[u])
-            else:
-                words.append(units[u])
+            if te > 0:
+                result.append(tens[te])
+            if un > 0:
+                if is_female and un in [1, 2]:
+                    result.append("одна" if un == 1 else "две")
+                else:
+                    result.append(units[un])
 
-        return ' '.join(filter(None, words))
+        return " ".join(result)
 
-    def get_form(n, forms):
-        if 11 <= n % 100 <= 14:
+    def get_form(number, forms):
+        if 11 <= number % 100 <= 14:
             return forms[2]
-        elif n % 10 == 1:
+        elif number % 10 == 1:
             return forms[0]
-        elif 2 <= n % 10 <= 4:
+        elif 2 <= number % 10 <= 4:
             return forms[1]
         else:
             return forms[2]
@@ -488,27 +399,28 @@ def number_to_words(n):
     if n == 0:
         return "ноль"
 
-    parts = []
-    millions = n // 1_000_000
-    thousands = (n % 1_000_000) // 1_000
-    rest = n % 1_000
+    millions = n//1_000_000
+    thousands = (n % 1_000_000)//1_000
+    units_part = n % 1_000
 
-    if millions:
-        parts.append(group_to_words(millions))
+    parts = []
+
+    if millions > 0:
+        parts.append(convert(millions))
         parts.append(get_form(millions, ["миллион", "миллиона", "миллионов"]))
 
-    if thousands:
-        parts.append(group_to_words(thousands, gender='f'))
+    if thousands > 0:
+        parts.append(convert(thousands, is_female=True))
         parts.append(get_form(thousands, ["тысяча", "тысячи", "тысяч"]))
 
-    if rest:
-        parts.append(group_to_words(rest))
+    if units_part > 0:
+        parts.append(convert(units_part))
 
-    return ' '.join(parts)
+    return " ".join(parts)
 
 
 num = int(input("Введите число (до 900000000): "))
-if 1 <= num <= 900_000_000:
+if 0 <= num <= 900_000_000:
     print(number_to_words(num))
 else:
-    print("Число вне допустимого диапазона!")
+    print("Число вне диапазона")

@@ -300,53 +300,6 @@ if correct:
 else:
     print("Скобки расставлены неправильно.")
 
-# 18
-def justify(text, width):
-    words = text.split()
-    lines = []
-    current_line = []
-
-    current_len = 0
-    for word in words:  # проверка места для слова
-        # + len(current_line) - пробелы между словами
-        if current_len + len(word) + len(current_line) <= width:
-            current_line.append(word)
-            current_len += len(word)
-        else:
-            line = align_line(current_line, width)
-            lines.append(line)
-            current_line = [word]
-            current_len = len(word)
-    if current_line:
-        lines.append(" ".join(current_line))
-
-    return "\n".join(lines)
-
-
-def align_line(words, width):
-    if len(words) == 1:
-        return words[0].ljust(width)
-
-    total_chars = sum(len(word) for word in words)  # общая длина слов
-    spaces_needed = width - total_chars  # кол-во пробелов
-    gaps = len(words) - 1  # кол-во промежутков между словами
-    space_between = spaces_needed // gaps  # база пробелов
-    extra_spaces = spaces_needed % gaps  # лишние пробелы
-
-    line = ""
-    for i, word in enumerate(words[:-1]):
-        line += word + " " * (space_between + (1 if i < extra_spaces else 0))
-    line += words[-1]
-    return line
-
-
-text = input("Введите текст: ")
-width = int(input("Введите ширину колонки: "))
-
-justified = justify(text, width)
-print("\nОтформатированный текст:\n")
-print(justified)
-
 # 20
 def number_to_words(n):
     units = ["", "один", "два", "три", "четыре",

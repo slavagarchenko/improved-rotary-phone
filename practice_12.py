@@ -34,13 +34,17 @@ print(len(k))
 # 4
 import re
 text = input()
+found  = None
 for item in set(text):
     symbol = re.escape(item)
     count = len(re.findall(symbol, text))
     if count == 3:
-        print(item)
-    else:
-        print("None")
+        found = item
+        break
+if found is not None:
+    print(found)
+else:
+    print("None")
 
 # 5
 a = input()
